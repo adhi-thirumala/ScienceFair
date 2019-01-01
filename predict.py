@@ -7,7 +7,7 @@ import requests
 from PIL import Image
 import numpy as np
 
-options = {"model": "cfg/tiny-yolo-voc.cfg", "load": "bin/tiny-yolo-voc.weights", "threshold": 0.1}
+options = {"model": "yolov2-tiny-voc.cfg", "load": "yolov2-tiny.weights", "threshold": 0.2}
 
 tfnet = TFNet(options)
 
@@ -16,7 +16,7 @@ def handleBird():
     pass
 
 while True:
-    r = requests.get('http://192.168.1.1:5000/image.jpg') # replace with your ip address
+    r = requests.get('http://192.168.1.171:5000/image.jpg') # replace with your ip address
     curr_img = Image.open(BytesIO(r.content))
     curr_img_cv2 = cv2.cvtColor(np.array(curr_img), cv2.COLOR_RGB2BGR)
 
