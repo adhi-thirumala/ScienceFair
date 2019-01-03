@@ -7,7 +7,7 @@ import requests
 from PIL import Image
 import numpy as np
 
-options = {"model": "yolov2-tiny-voc.cfg", "load": "yolov2-tiny.weights", "threshold": 0.2}
+options = {"model": "yolov2-tiny.cfg", "load": "yolov2-tiny.weights", "threshold": 0.2}
 
 tfnet = TFNet(options)
 
