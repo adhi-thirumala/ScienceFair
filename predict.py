@@ -28,6 +28,6 @@ while True:
         if detection['label'] == 'bird':
             print("bird detected")
             birdsSeen += 1
-            curr_img.save('birds/%i.jpg' % birdsSeen)
+            curr_img.save('%i.jpg' % birdsSeen)
     print('running again')
     time.sleep(4)
