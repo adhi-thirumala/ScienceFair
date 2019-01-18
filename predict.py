@@ -8,13 +8,14 @@ from PIL import Image
 import numpy as np
 
 import smtplib
-from email.MIME.multipart import MIMEMultipart
-from email.MIME.text import MIMEText
-from email.MIME.base import MIMEBase
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
 from email import encoders
 
 
-options = {"model": "yolov2-tiny.cfg", "load": "yolov2-tiny.weights", "threshold": 0.2}
+options = {"model": "yolov2-tiny.cfg", "load": "yolov2-tiny.weights", "threshold": 0.8}
+
 
 tfnet = TFNet(options)
 
@@ -24,11 +25,12 @@ def handleBird():
 
 while True:
     r = requests.get('http://192.168.1.166:5000/image.jpg') # replace with your ip address
+    #imgcv = cv2.imread('/home/adhit/Downloads/hhh.png')
     curr_img = Image.open(BytesIO(r.content))
     curr_img_cv2 = cv2.cvtColor(np.array(curr_img), cv2.COLOR_RGB2BGR)
 
     # uncomment below to try your own image
-    #imgcv = cv2.imread('./sample/bird.png')
+    curr_img.show()
     result = tfnet.return_predict(curr_img_cv2)
     #print(result)
     for detection in result:
@@ -36,7 +38,7 @@ while True:
             print("bird detected")
             birdsSeen += 1
             curr_img.save('%i.jpg' % birdsSeen)
-            fromaddr = "adhi.thirumala@gmail.com"
+            """fromaddr = "adhi.thirumala@gmail.com"
             toaddr = "adhi.thirumala@gmail.com"
 
             msg = MIMEMultipart()
@@ -59,11 +61,14 @@ while True:
 
             msg.attach(part)
 
-            server = smtplib.SMTP('smtp.gmail.com', 587)
+            server = smtplib.SMTP('smtp.sgmail.com', 587)
             server.starttls()
             server.login(fromaddr, "adhitya2006")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
-            server.quit()
-    print('running again')
-    time.sleep(4)
+            server.quit()"""
+            print (detection['label'])
+            print('running again')
+            time.sleep(8)
+            r = requests.get("http://192.168.1.166:5000/image.jpg")
+     # replace with your ip addr

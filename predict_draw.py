@@ -10,13 +10,13 @@ import numpy as np
 
 import glob
 
-options = {"model": "cfg/tiny-yolo-voc.cfg", "load": "bin/tiny-yolo-voc.weights", "threshold": 0.15}
+options = {"model": "yolov2-tiny.cfg", "load": "yolov2-tiny.weights", "threshold": 0.15}
 
 tfnet = TFNet(options)
 
 
 counter = 0
-for filename in glob.glob('birds/*.jpg'):
+for filename in glob.glob('1.jpg'):
     curr_img = Image.open(filename).convert('RGB')
     curr_imgcv2 = cv2.cvtColor(np.array(curr_img), cv2.COLOR_RGB2BGR)
 
@@ -24,10 +24,9 @@ for filename in glob.glob('birds/*.jpg'):
     print(result)
     draw = ImageDraw.Draw(curr_img)
     for det in result:
-        draw.rectangle([det['topleft']['x'], det['topleft']['y'], 
+        draw.rectangle([det['topleft']['x'], det['topleft']['y'],
                         det['bottomright']['x'], det['bottomright']['y']],
                        outline=(255, 0, 0))
         draw.text([det['topleft']['x'], det['topleft']['y'] - 13], det['label'], fill=(255, 0, 0))
-    curr_img.save('birds_labeled/%i.jpg' % counter)
+    curr_img.save('detect%i.jpg' % counter)
     counter += 1
-
