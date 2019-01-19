@@ -16,7 +16,7 @@ tfnet = TFNet(options)
 
 
 counter = 0
-for filename in glob.glob('1.jpg'):
+for filename in glob.glob('../Downloads/bird1.jpg'):
     curr_img = Image.open(filename).convert('RGB')
     curr_imgcv2 = cv2.cvtColor(np.array(curr_img), cv2.COLOR_RGB2BGR)
 
