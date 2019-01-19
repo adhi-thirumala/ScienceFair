@@ -24,30 +24,27 @@ def handleBird():
     pass
 
 while True:
-    r = requests.get('http://192.168.1.166:5000/image.jpg') # replace with your ip address
-    #imgcv = cv2.imread('/home/adhit/Downloads/hhh.png')
+    r = requests.get('ip address of pi') # replace with your ip address
     curr_img = Image.open(BytesIO(r.content))
     curr_img_cv2 = cv2.cvtColor(np.array(curr_img), cv2.COLOR_RGB2BGR)
 
-    # uncomment below to try your own image
-    curr_img.show()
     result = tfnet.return_predict(curr_img_cv2)
-    #print(result)
+    print(result)
     for detection in result:
         if detection['label'] == 'bird':
             print("bird detected")
-            birdsSeen += 1
+            #birdsSeen += 1
             curr_img.save('%i.jpg' % birdsSeen)
-            """fromaddr = "adhi.thirumala@gmail.com"
-            toaddr = "adhi.thirumala@gmail.com"
+            fromaddr = "address u want to send from"
+            toaddr = "address u want to send to"
 
             msg = MIMEMultipart()
 
             msg['From'] = fromaddr
             msg['To'] = toaddr
-            msg['Subject'] = "Your camera saw a bird"
+            msg['Subject'] = "SUBJECT"
 
-            body = "Here is the pic."
+            body = "BODYTEXT"
 
             msg.attach(MIMEText(body, 'plain'))
 
@@ -61,14 +58,11 @@ while True:
 
             msg.attach(part)
 
-            server = smtplib.SMTP('smtp.sgmail.com', 587)
+            server = smtplib.SMTP('smtp.gmail.com', 587)
             server.starttls()
-            server.login(fromaddr, "adhitya2006")
+            server.login(fromaddr, "email password"
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
-            server.quit()"""
-            print (detection['label'])
+            server.quit()
             print('running again')
-            time.sleep(8)
-            r = requests.get("http://192.168.1.166:5000/image.jpg")
-     # replace with your ip addr
+            time.sleep(4)
