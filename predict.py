@@ -60,9 +60,10 @@ while True:
 
             server = smtplib.SMTP('smtp.gmail.com', 587)
             server.starttls()
-            server.login(fromaddr, "email password"
+            server.login(fromaddr, "email password")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             server.quit()
+            #print (detection['label'])
             print('running again')
             time.sleep(4)
